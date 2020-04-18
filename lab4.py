@@ -153,6 +153,8 @@ def student(y_array, y_average_array):
 
 
 def fisher(y_average_array, y0_array, y_array):
+    if d == N:
+        return True
     dispersion_adequacy = 0
     for i in range(N):
         dispersion_adequacy += (y0_array[i] - y_average_array[i]) ** 2
@@ -201,7 +203,7 @@ condition_cohren = False
 condition_fisher = False
 
 
-while not condition_fisher:
+while not condition_fisher: #тут починаємо спочатку, якщо рівняння не адекватне
     while not condition_cohren:
         print(f'm={m}')
         y = [[random.randint(y_min, y_max) for _ in range(m)] for _ in range(N)]
@@ -223,14 +225,9 @@ while not condition_fisher:
     for i in range(N):
         yo.append(b[0] + b[1] * x[i][0] + b[2] * x[i][1] + b[3] * x[i][2] + b[4]*x[i][0]*x[i][1] +
                   b[5]*x[i][0]*x[i][2] + b[6]*x[i][1]*x[i][2] + b[7]*x[i][0]*x[i][1]*x[i][2])
-    if d != N:
-        condition_fisher = fisher(y_average, yo, y)
-    else:
-        condition_fisher = True
+    condition_fisher = fisher(y_average, yo, y)
     if condition_fisher:
         print('Отримана математична модель адекватна експериментальним даним')
-    else:
-        print('Рівняння регресії неадекватно оригіналу')
 
 
 
